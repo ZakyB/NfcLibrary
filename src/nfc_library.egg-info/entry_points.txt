@@ -1,0 +1,2 @@
+[console_scripts]
+nfc_library = nfc_library.__main__:main

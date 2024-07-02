@@ -1,0 +1,12 @@
+LICENCE
+README.md
+setup.py
+src/nfc_library/__init__.py
+src/nfc_library/reader.py
+src/nfc_library.egg-info/PKG-INFO
+src/nfc_library.egg-info/SOURCES.txt
+src/nfc_library.egg-info/dependency_links.txt
+src/nfc_library.egg-info/entry_points.txt
+src/nfc_library.egg-info/requires.txt
+src/nfc_library.egg-info/top_level.txt
+tests/test_reader.py
