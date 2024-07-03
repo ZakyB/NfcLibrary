@@ -6,5 +6,6 @@ def api_validation_function(token):
     return response.json().get('valid', False)
 
 manager = NFCManager(validation_function=api_validation_function)
-token, is_valid = manager.read_and_validate_token()
+token = 'dummy_token'
+is_valid = manager.validate_token(token)
 print(f"Token: {token}, Valid: {is_valid}")

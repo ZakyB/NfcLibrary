@@ -6,5 +6,6 @@ def list_validation_function(token):
     return token in valid_tokens
 
 manager = NFCManager(validation_function=list_validation_function)
-token, is_valid = manager.read_and_validate_token()
+token = 'token1'
+is_valid = manager.validate_token(token)
 print(f"Token: {token}, Valid: {is_valid}")

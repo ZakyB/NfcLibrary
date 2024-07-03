@@ -1,10 +1,10 @@
 import sqlite3
 from nfc_library import NFCManager
 
-# Setup in-memory SQLite database for testing
-conn = sqlite3.connect(':memory:')
-conn.execute("CREATE TABLE valid_tokens (token TEXT)")
-conn.execute("INSERT INTO valid_tokens (token) VALUES ('valid_token')")
+conn = sqlite3.connect('tokens.db')
+conn.execute("CREATE TABLE IF NOT EXISTS valid_tokens (token TEXT)")
+conn.execute("INSERT INTO valid_tokens (token) VALUES ('valid_token1')")
+conn.execute("INSERT INTO valid_tokens (token) VALUES ('valid_token2')")
 conn.commit()
 
 def db_validation_function(token):
@@ -13,5 +13,6 @@ def db_validation_function(token):
     return cursor.fetchone() is not None
 
 manager = NFCManager(validation_function=db_validation_function)
-token, is_valid = manager.read_and_validate_token()
+token = 'valid_token1'
+is_valid = manager.validate_token(token)
 print(f"Token: {token}, Valid: {is_valid}")
