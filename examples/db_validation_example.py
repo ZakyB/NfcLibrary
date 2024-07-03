@@ -1,16 +1,17 @@
 import sqlite3
-from nfc_library.reader import NFCTokenReader
+from nfc_library import NFCManager
+
+# Setup in-memory SQLite database for testing
+conn = sqlite3.connect(':memory:')
+conn.execute("CREATE TABLE valid_tokens (token TEXT)")
+conn.execute("INSERT INTO valid_tokens (token) VALUES ('valid_token')")
+conn.commit()
 
 def db_validation_function(token):
-    conn = sqlite3.connect('tokens.db')
     query = "SELECT 1 FROM valid_tokens WHERE token = ?"
     cursor = conn.execute(query, (token,))
-    result = cursor.fetchone()
-    conn.close()
-    return result is not None
+    return cursor.fetchone() is not None
 
-# Créer une instance de NFCTokenReader avec la fonction de validation de la base de données
-reader = NFCTokenReader(validation_function=db_validation_function)
-token = reader.read_token()
-is_valid = reader.validate_token(token)
-print(f"Token is valid: {is_valid}")
+manager = NFCManager(validation_function=db_validation_function)
+token, is_valid = manager.read_and_validate_token()
+print(f"Token: {token}, Valid: {is_valid}")

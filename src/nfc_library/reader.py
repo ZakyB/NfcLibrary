@@ -4,10 +4,9 @@ import nfc
 import logging
 
 class NFCTokenReader:
-    def __init__(self, validation_function=None, connection_type='usb'):
+    def __init__(self, connection_type='usb'):
         self.clf = None
         self.connection_type = connection_type
-        self.validation_function = validation_function
         self._setup_reader()
 
     def _setup_reader(self):
@@ -26,9 +25,3 @@ class NFCTokenReader:
         except Exception as e:
             logging.error(f"Failed to read token: {e}")
             return None
-
-    def validate_token(self, token):
-        if self.validation_function:
-            return self.validation_function(token)
-        logging.warning("No validation function provided.")
-        return False
